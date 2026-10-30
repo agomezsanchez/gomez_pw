@@ -42,6 +42,9 @@ export const test = base.extend<TestFixtures & TestOptions, WorkerFixtures>({
 
       if (!(await isStateValid(browser, file))) {
         // API SIGN IN
+        if (!process.env.TEST_USER_EMAIL || !process.env.TEST_USER_PASSWORD) {
+          throw new Error('TEST_USER_EMAIL and TEST_USER_PASSWORD must be set');
+        }
 
         const context = await browser.newContext({ baseURL, ignoreHTTPSErrors: true  });
 
